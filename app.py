@@ -22,6 +22,7 @@ class WledApp(wx.App):
         return True
 
     def OnExit(self):
+        self.worker.api.reboot()
         return 0
 
 

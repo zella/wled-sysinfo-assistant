@@ -17,7 +17,7 @@ class WledApi:
 
     def reboot(self):
         params = ({'v': False, 'rb': True})
-        r = requests.post('http://{}:{}/json/state'.format(self.ip, self.port), json=params, timeout=10)
+        r = requests.post('http://{}:{}/json/state'.format(self.ip, self.port), json=params, timeout=4)
         return r.status_code
 
     @staticmethod
