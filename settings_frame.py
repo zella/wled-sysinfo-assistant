@@ -1,6 +1,6 @@
 import wx
 import wx.lib.masked as masked
-
+import utils
 from config import WledSettings, WledSettingsData
 from task_bar import WledTaskBarIcon
 import wx.lib.agw.hyperlink as hl
@@ -8,7 +8,7 @@ import wx.lib.agw.hyperlink as hl
 
 # TODO разметка и окно по контенту
 
-
+# TODO
 class SettingsFrame(wx.Frame):
 
     def __init__(self, parent, title):
@@ -35,8 +35,8 @@ class SettingsFrame(wx.Frame):
         self.main_staticbox = wx.StaticBox(self, wx.ID_ANY, label="Главные настройки")
         self.main_sizer = wx.StaticBoxSizer(self.main_staticbox, wx.VERTICAL)
         self.main_cb_on = wx.CheckBox(self, label='Включено', pos=(10, 10))
-        self.wled_hiperlink = hl.HyperLinkCtrl(self,  wx.ID_ANY, 'Настройки wled',
-                                  URL="Открыть в браузере")
+        self.wled_hiperlink = hl.HyperLinkCtrl(self, wx.ID_ANY, 'Настройки wled',
+                                               URL="Открыть в браузере")
 
         self.main_sizer.Add(self.main_cb_on)
         self.main_sizer.Add(self.wled_hiperlink)
@@ -115,7 +115,7 @@ class SettingsFrame(wx.Frame):
         self.set_ui_settings()
 
         # TODO optimize
-        self.SetIcon(wx.Icon('./bitmaps/icon.png', wx.BITMAP_TYPE_PNG))
+        self.SetIcon(wx.Icon(utils.resource_path('bitmaps/icon.png'), wx.BITMAP_TYPE_PNG))
 
         self.Layout()
         self.Centre()

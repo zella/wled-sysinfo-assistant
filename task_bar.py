@@ -1,5 +1,6 @@
 import wx
 from wx.adv import TaskBarIcon
+import utils
 
 
 class WledTaskBarIcon(TaskBarIcon):
@@ -8,7 +9,7 @@ class WledTaskBarIcon(TaskBarIcon):
 
         self.frame = frame
 
-        self.SetIcon(wx.Icon('./bitmaps/icon.png', wx.BITMAP_TYPE_PNG), 'Wled sysinfo assistant')
+        self.SetIcon(wx.Icon(utils.resource_path('bitmaps/icon.png'), wx.BITMAP_TYPE_PNG), 'Wled sysinfo assistant')
 
         self.Bind(wx.EVT_MENU, self.OnTaskBarActivate, id=1)
         self.Bind(wx.EVT_MENU, self.OnTaskBarDeactivate, id=2)
