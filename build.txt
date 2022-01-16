@@ -1,4 +1,4 @@
 # Windows
 pip install pyinstaller
-pyinstaller.exe --onefile app.py --add-data="bitmaps;bitmaps" --noconsole --icon=bitmaps\icon.ico
+pyinstaller.exe --onefile app.py --add-data="bitmaps;bitmaps" --noconsole --icon=bitmaps\icon.ico --name "Wled sysinfo assistant"
 
