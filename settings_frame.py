@@ -3,6 +3,7 @@ import wx.lib.masked as masked
 
 from config import WledSettings, WledSettingsData
 from task_bar import WledTaskBarIcon
+import wx.lib.agw.hyperlink as hl
 
 
 # TODO разметка и окно по контенту
@@ -27,15 +28,20 @@ class SettingsFrame(wx.Frame):
         self.Bind(wx.EVT_CLOSE, self.OnClose)
         self.task_bar = WledTaskBarIcon(self)
 
+        self.statusbar = self.CreateStatusBar(1)
         self.parentsizer = wx.BoxSizer(wx.VERTICAL)
 
         # Главные настройки
         self.main_staticbox = wx.StaticBox(self, wx.ID_ANY, label="Главные настройки")
         self.main_sizer = wx.StaticBoxSizer(self.main_staticbox, wx.VERTICAL)
         self.main_cb_on = wx.CheckBox(self, label='Включено', pos=(10, 10))
-        self.main_sizer.Add(self.main_cb_on)
+        self.wled_hiperlink = hl.HyperLinkCtrl(self,  wx.ID_ANY, 'Настройки wled',
+                                  URL="Открыть в браузере")
 
+        self.main_sizer.Add(self.main_cb_on)
+        self.main_sizer.Add(self.wled_hiperlink)
         # Скорость обновления
+
         self.speed_staticbox = wx.StaticBox(self, wx.ID_ANY, label="Скорость обновления, секунд")
         self.speed_sizer = wx.StaticBoxSizer(self.speed_staticbox, wx.VERTICAL)
         self.speed_choise = wx.Choice(self, choices=self.available_speeds)
@@ -144,6 +150,7 @@ class SettingsFrame(wx.Frame):
             self.main_cb_on.SetValue(self.settings.on)
             self.ip_text.SetValue(self.settings.ip)
             self.ip_rb_auto.SetValue(self.settings.ip_auto)
+            self.ip_rb_manual.SetValue(not self.settings.ip_auto)
             self.speed_choise.SetSelection(self.settings.refresh_speed)  # numer 1
             self.led_x_text.SetValue(self.settings.segment_x)
             self.led_y_text.SetValue(self.settings.segment_y)
@@ -170,6 +177,13 @@ class SettingsFrame(wx.Frame):
 
     def set_worker(self, worker):
         self.worker = worker
+
+    def set_status(self, text):
+        print(text)
+        self.statusbar.SetStatusText(text)
+
+    def set_hiperlink(self, ip, port):
+        self.wled_hiperlink.SetURL('http://{}:{}'.format(ip, port))
 # ex = wx.App()
 # SettingsFrame(None, 'Настройки')
 # ex.MainLoop()
