@@ -4,7 +4,8 @@ from dataclasses import dataclass
 
 from appdirs import *
 
-#TODO version
+
+# TODO version
 
 @dataclass
 class WledSettingsData:
@@ -16,6 +17,7 @@ class WledSettingsData:
     refresh_speed: int
     segment_x: int
     segment_y: int
+    is_zig_zag: bool
 
 
 class WledSettings:
@@ -34,7 +36,8 @@ class WledSettings:
                                 ip_auto=True,
                                 refresh_speed=1,
                                 segment_x=4,
-                                segment_y=4)
+                                segment_y=4,
+                                is_zig_zag=False)
 
     @staticmethod
     def load_settings() -> WledSettingsData:
@@ -54,8 +57,9 @@ class WledSettings:
                                             ip=data['ip'],
                                             ip_auto=data['ip_auto'],
                                             refresh_speed=data['refresh_speed'],
-                                            segment_x = data['segment_x'],
-                                            segment_y = data['segment_y'])
+                                            segment_x=data['segment_x'],
+                                            segment_y=data['segment_y'],
+                                            is_zig_zag=data['is_zig_zag'])
                 # validation
                 if len(settings.proc_color) != 3 or len(settings.mem_color) != 3:
                     print(settings)
@@ -75,7 +79,8 @@ class WledSettings:
             'ip_auto': settings.ip_auto,
             'refresh_speed': settings.refresh_speed,
             'segment_x': settings.segment_x,
-            'segment_y': settings.segment_y
+            'segment_y': settings.segment_y,
+            'is_zig_zag': settings.is_zig_zag
         }
         config = WledSettings.config_file()
         os.makedirs(os.path.dirname(config), exist_ok=True)

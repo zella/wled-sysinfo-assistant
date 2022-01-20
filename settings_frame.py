@@ -172,7 +172,8 @@ class SettingsFrame(wx.Frame):
             ip_auto=self.ip_rb_auto.GetValue(),
             refresh_speed=self.speed_choise.GetSelection(),
             segment_x=self.led_x_text.GetValue(),
-            segment_y=self.led_y_text.GetValue()
+            segment_y=self.led_y_text.GetValue(),
+            is_zig_zag=False #TODO ui
         )
 
     def set_worker(self, worker):

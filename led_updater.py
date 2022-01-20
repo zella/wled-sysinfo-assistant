@@ -9,6 +9,7 @@ class WledChart:
     def clear(self):
         self.update_leds(1, [0, 0, 0])
 
+
     def update_leds(self, percent, color):
         color_empty = [0, 0, 0]
         rows = []

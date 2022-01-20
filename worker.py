@@ -8,6 +8,7 @@ from zeroconf import Zeroconf, ServiceBrowser
 from api import WledApi
 from discovery import WledDiscovery
 from led_updater import WledChart
+from led_updater_v2 import WledChartV2
 from settings_frame import SettingsFrame
 
 
@@ -22,7 +23,7 @@ class WledWorker(Thread):
 
     def run(self):
         zeroconf = None
-        #TODO требуется перезапуск при смене ip адреса. Переделать, шоб заного инициализировалось
+        # TODO требуется перезапуск при смене ip адреса. Переделать, шоб заного инициализировалось
         if (self.settings_frame.settings.ip_auto):
             zeroconf = self.__init_discovery()
         else:
@@ -38,9 +39,17 @@ class WledWorker(Thread):
             time.sleep(1)
         self.settings_frame.set_hiperlink(self.api.ip, self.api.port)
         self.settings_frame.set_status('Connected')
-        # TODO x - y swap
-        cpu_led = WledChart(self.api, segment_id=0, x=16, y=8)
-        mem_led = WledChart(self.api, segment_id=1, x=16, y=8)
+        # TODO x - y swap?
+        cpu_led = WledChartV2(self.api,
+                              segment_id=0,
+                              width_x=self.settings_frame.settings.segment_x,
+                              width_y=self.settings_frame.settings.segment_y,
+                              is_zigzag=self.settings_frame.settings.is_zig_zag)
+        mem_led = WledChartV2(self.api,
+                              segment_id=1,
+                              width_x=self.settings_frame.settings.segment_x,
+                              width_y=self.settings_frame.settings.segment_y,
+                              is_zigzag=self.settings_frame.settings.is_zig_zag)
         # cpu_led = WledChart(self.api, segment_id=0, x=self.settings_frame.settings.segment_x, y=self.settings_frame.settings.segment_y)
         # mem_led = WledChart(self.api, segment_id=1, x=self.settings_frame.settings.segment_x, y=self.settings_frame.settings.segment_y)
 
