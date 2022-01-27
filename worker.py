@@ -39,16 +39,15 @@ class WledWorker(Thread):
             time.sleep(1)
         self.settings_frame.set_hiperlink(self.api.ip, self.api.port)
         self.settings_frame.set_status('Connected')
-        # TODO x - y swap?
         cpu_led = WledChartV2(self.api,
                               segment_id=0,
-                              width_x=self.settings_frame.settings.segment_x,
-                              width_y=self.settings_frame.settings.segment_y,
+                              width_x=self.settings_frame.settings.segment_y,
+                              width_y=self.settings_frame.settings.segment_x,
                               is_zigzag=self.settings_frame.settings.is_zig_zag)
         mem_led = WledChartV2(self.api,
                               segment_id=1,
-                              width_x=self.settings_frame.settings.segment_x,
-                              width_y=self.settings_frame.settings.segment_y,
+                              width_x=self.settings_frame.settings.segment_y,
+                              width_y=self.settings_frame.settings.segment_x,
                               is_zigzag=self.settings_frame.settings.is_zig_zag)
         # cpu_led = WledChart(self.api, segment_id=0, x=self.settings_frame.settings.segment_x, y=self.settings_frame.settings.segment_y)
         # mem_led = WledChart(self.api, segment_id=1, x=self.settings_frame.settings.segment_x, y=self.settings_frame.settings.segment_y)

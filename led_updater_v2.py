@@ -13,6 +13,7 @@ class Row:
 class LedRow:
     i1: int
     i2: int
+    row: Row
     fill: bool
 
 
@@ -34,21 +35,20 @@ class WledChartV2:
             x1 = 0
             y1 = i
             rows.append(Row(x1, y1, x2, y2))
-        print(rows)
         return rows
 
     @staticmethod
     def black_or_none(x_old, x_new):
         if x_old > x_new:
-            x_start = x_new + 1
+            x_start = x_new
             x_end = x_old
             return x_start, x_end
         else:
             return None
 
     def to1d(self, x, y):
-        if self.is_zigzag:
-            return y * self.width_x + (self.width_x - x - 1)
+        if self.is_zigzag and y % 2 != 0:
+            return y * self.width_x + (self.width_x - x)
         else:
             return y * self.width_x + x
 
@@ -65,11 +65,14 @@ class WledChartV2:
                 if x1x2:
                     fill = False
                     (x1, x2) = x1x2
-            self.old_rows = rows
+            i1 = self.to1d(x1, row.y1)
+            i2 = self.to1d(x2, row.y2)
             led_rows.append(LedRow(
-                self.to1d(x1, row.y1),
-                self.to1d(x2, row.x2), fill)
-            )
+                min(i1, i2),
+                max(i1, i2),
+                Row(x1, row.y1, x2, row.y2),
+                fill))
+        self.old_rows = rows
         return led_rows
 
     def update_leds(self, percent, color):

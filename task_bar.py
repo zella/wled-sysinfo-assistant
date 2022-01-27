@@ -19,9 +19,9 @@ class WledTaskBarIcon(TaskBarIcon):
 
     def CreatePopupMenu(self):
         menu = wx.Menu()
-        menu.Append(1, 'Show')
-        menu.Append(2, 'Hide')
-        menu.Append(3, 'Close')
+        menu.Append(1, 'Показать')
+        menu.Append(2, 'Спрятать')
+        menu.Append(3, 'Закрыть')
 
         return menu
 

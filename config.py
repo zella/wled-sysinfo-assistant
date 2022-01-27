@@ -43,6 +43,7 @@ class WledSettings:
     def load_settings() -> WledSettingsData:
         try:
             conf_file = WledSettings.config_file()
+            print('Loading config {}'.format(conf_file))
 
             if not os.path.isfile(conf_file):
                 setting = WledSettings.default_settings()
