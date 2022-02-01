@@ -8,8 +8,6 @@ from worker import WledWorker
 class WledApp(wx.App):
 
     def OnInit(self):
-        self.settings = WledSettings.load_settings()
-
         frame = SettingsFrame(None, 'Настройки')
         frame.Show(False)
         self.SetTopWindow(frame)
