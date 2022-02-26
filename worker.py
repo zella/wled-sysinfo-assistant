@@ -27,12 +27,13 @@ class WledWorker(Thread):
         if (self.settings_frame.settings.ip_auto):
             zeroconf = self.__init_discovery()
         else:
+            self.setup_api(WledApi(self.settings_frame.settings.ip, 80))
             ip, port = self.settings_frame.settings.ip, 80
             while not WledApi.is_online(ip, port) or not self.ready():
                 self.settings_frame.set_status('Wait wled service...')
                 ip, port = self.settings_frame.settings.ip, 80
                 time.sleep(1)
-            self.setup_api(WledApi(self.settings_frame.settings.ip, 80))
+
 
         while not self.ready():
             self.settings_frame.set_status('Wait wled service...')

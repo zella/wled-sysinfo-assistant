@@ -160,6 +160,8 @@ class SettingsFrame(wx.Frame):
                           style=wx.OK | wx.ICON_ERROR)
 
     def get_ui_settings(self) -> WledSettingsData:
+        ip = self.ip_text.GetValue()
+        ip = ip.replace(" ", "")
         return WledSettingsData(
             proc_color=[int(self.led_proc_r_text.GetValue()),
                         int(self.led_proc_g_text.GetValue()),
@@ -168,7 +170,7 @@ class SettingsFrame(wx.Frame):
                        int(self.led_mem_g_text.GetValue()),
                        int(self.led_mem_b_text.GetValue())],
             on=self.main_cb_on.GetValue(),
-            ip=self.ip_text.GetValue(),
+            ip=ip,
             ip_auto=self.ip_rb_auto.GetValue(),
             refresh_speed=self.speed_choise.GetSelection(),
             segment_x=self.led_x_text.GetValue(),
